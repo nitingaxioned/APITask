@@ -15,10 +15,10 @@ apiRequest.onload = function(){
 }
 apiRequest.send();
 
-// Event Listners
+// Event Listners for load more
 document.querySelector("a").addEventListener("click", function(){ displayCards(); });
 
-// card to Display
+// Cerates card node
 function displayCards(){
     pointer = index + 6;
     (data.length < pointer) && (pointer=data.length);
@@ -35,10 +35,11 @@ function displayCards(){
     (pointer==data.length) && document.querySelector("a").classList.add("hide-me");
 }
 
+// display card and featching User data 
 function random(tempCard){
-    var randomRequest = new XMLHttpRequest();
-    randomRequest.open("GET", "https://randomuser.me/api/", true);
-    randomRequest.onload = function(){
+    var randomUserRequest = new XMLHttpRequest();
+    randomUserRequest.open("GET", "https://randomuser.me/api/", true);
+    randomUserRequest.onload = function(){
         if(this.status == 200)
             user = JSON.parse(this.response);
         else
@@ -48,22 +49,12 @@ function random(tempCard){
         tempCard.querySelector("img").src = user.results[0].picture.medium;
         document.querySelector(".cards").appendChild(tempCard);
     }
-    randomRequest.send();
+    randomUserRequest.send();
 }
 
+// gives Date in format
 function getDateFormat(str){
     var dateObj = new Date(str);
     var month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
     return month[dateObj.getMonth()]+" "+dateObj.getDate()+", "+ dateObj.getFullYear();
 }
-
-
-
-
-
-
-
-
-
-
-
